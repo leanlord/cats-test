@@ -25,8 +25,22 @@ export default {
         category: "Сказочное заморское яство",
         filling: "фуа-гура",
         portions: 10,
-        mouse: 3,
+        mouse: 1,
         weight: 0.5,
+      },
+      {
+        category: "Сказочное заморское яство",
+        filling: "рыбой",
+        portions: 40,
+        mouse: 2,
+        weight: 2,
+      },
+      {
+        category: "Сказочное заморское яство",
+        filling: "курой",
+        portions: 100,
+        mouse: 5,
+        weight: 5,
       },
     ];
     return {
@@ -38,8 +52,15 @@ export default {
 
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@100&family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400;700&family=Exo+2:wght@100&family=Roboto&display=swap");
+* {
+  box-sizing: border-box;
+}
+p {
+  margin: 0;
+}
 body {
-  font-family: "Exo 2", sans-serif;
+  font-family: "Alegreya Sans", sans-serif;
   background-image: url("assets/pattern.jpg");
 }
 .container {
@@ -48,6 +69,7 @@ body {
 }
 .app {
   &__title {
+    font-family: "Exo 2", sans-serif;
     padding-top: 36px;
     text-align: center;
     font-size: 36px;
