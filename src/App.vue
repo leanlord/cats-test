@@ -1,17 +1,21 @@
 <template>
   <div class="container">
-    <h1 class="app__title">Ты сегодня покормил кота?</h1>
-    <ul class="app__cats">
-      <li class="app__cat" v-for="cat in catsExample" :key="cat">
-        <FeedCat
-          :filling="cat.filling"
-          :category="cat.category"
-          :mouse="cat.mouse"
-          :portions="cat.portions"
-          :weight="cat.weight"
-        ></FeedCat>
-      </li>
-    </ul>
+    <div class="app">
+      <h1 class="app__title">Ты сегодня покормил кота?</h1>
+      <ul class="app__cats">
+        <li class="app__cat" v-for="cat in catsExample" :key="cat">
+          <FeedCat
+            :filling="cat.filling"
+            :category="cat.category"
+            :mouse="cat.mouse"
+            :portions="cat.portions"
+            :weight="cat.weight"
+            :bottom-text="cat.bottomText"
+            :disabled="cat.disabled"
+          ></FeedCat>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -27,6 +31,8 @@ export default {
         portions: 10,
         mouse: 1,
         weight: 0.5,
+        bottomText: "Печень утки разварная с артишоками.",
+        disabled: false,
       },
       {
         category: "Сказочное заморское яство",
@@ -34,6 +40,8 @@ export default {
         portions: 40,
         mouse: 2,
         weight: 2,
+        bottomText: "Головы щучьи с чесноком да свежайшая сёмгушка.",
+        disabled: false,
       },
       {
         category: "Сказочное заморское яство",
@@ -41,6 +49,8 @@ export default {
         portions: 100,
         mouse: 5,
         weight: 5,
+        bottomText: "Филе из цыплят с трюфелями в бульоне.",
+        disabled: true,
       },
     ];
     return {

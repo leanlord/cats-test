@@ -1,7 +1,19 @@
 <template>
-  <div class="polygon">
-    <div class="cat">
-      <p class="cat__category">
+  <div class="card" @click="selectCat">
+    <div
+      class="cat"
+      :style="[
+        selected
+          ? { border: '4px solid #d91667' }
+          : { border: '4px solid #2ea8e6' },
+        disabled ? { border: '4px solid #B3B3B3' } : {},
+      ]"
+      :class="{ catDissolve: disabled, disabled: disabled }"
+      @mouseover="disabled ? {} : (catHovered = true)"
+      @mouseleave="catHovered = false"
+    >
+      <p class="cat__category pink" v-if="catHovered">Котэ не одобряет?</p>
+      <p class="cat__category" v-else>
         {{ category }}
       </p>
       <div class="cat__head">
@@ -23,7 +35,12 @@
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <circle cx="40" cy="40" r="40" fill="#2EA8E6" />
+          <circle
+            cx="40"
+            cy="40"
+            r="40"
+            :fill="disabled ? '#B3B3B3' : fillColor"
+          />
         </svg>
         <div class="cat__desc">
           <p class="cat__weigh">
@@ -34,45 +51,113 @@
       </div>
     </div>
   </div>
+  <div class="card__text yellow" v-if="disabled">
+    Печалька, с {{ filling }} закончился.
+  </div>
+  <template v-else>
+    <div class="card__text" v-if="selected">
+      {{ bottomText }}
+    </div>
+    <div class="card__text" v-else>
+      Чего сидишь? Порадуй котэ,
+      <span @click="selectCat" class="card__span">купи.</span>
+    </div>
+  </template>
 </template>
 
 <script>
+import { ref } from "vue";
+
 export default {
   name: "FeedCat",
-  props: ["category", "filling", "portions", "weight", "mouse"],
+  props: [
+    "category",
+    "filling",
+    "portions",
+    "weight",
+    "mouse",
+    "bottomText",
+    "disabled",
+  ],
+  setup() {
+    let count = ref(0);
+    let fillColor = ref("#2EA8E6");
+    let selected = ref(false);
+    let catHovered = ref(false);
+    const selectCat = () => {
+      selected.value = !selected.value;
+      selected.value
+        ? (fillColor.value = "#D91667")
+        : (fillColor.value = "#2EA8E6");
+    };
+
+    return {
+      fillColor,
+      count,
+      selectCat,
+      selected,
+      catHovered,
+    };
+  },
 };
 </script>
 
 <style scoped lang="scss">
+$blue: #22a7e9;
+$pink: #d91667;
+$yellow: #ffff66;
+.card {
+  overflow: hidden;
+  &__text {
+    text-align: center;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 15px;
+    color: #fff;
+  }
+  &__span {
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 15px;
+    color: $blue;
+    cursor: pointer;
+  }
+}
+
+.yellow {
+  color: $yellow;
+}
 .cat {
   position: relative;
   width: 320px;
   height: 480px;
+  background-image: url("../assets/cat.png");
   background-color: #f2f2f2;
-  background-image: url("../assets/cat.jpg");
   background-position: bottom;
   background-repeat: no-repeat;
-  border: 4px solid #2ea8e6;
   border-radius: 12px;
   padding: 21px 48px;
+  cursor: pointer;
+  margin-bottom: 14px;
+  &__selected {
+    border: 4px solid $pink;
+  }
   &__category {
     margin-bottom: 5px;
     font-weight: 400;
     font-size: 16px;
     line-height: 19px;
-    color: #666666;
+    color: #000;
   }
   &__title {
     font-weight: 700;
     font-size: 48px;
     line-height: 56px;
-    color: #000;
   }
   &__subtitle {
     font-weight: 700;
     font-size: 24px;
     line-height: 28px;
-    color: #000;
   }
   &__head {
     margin-bottom: 15px;
@@ -105,5 +190,14 @@ export default {
     line-height: 22px;
     color: #fff;
   }
+}
+.catDissolve {
+  background-image: url("../assets/cat_dissolve.png");
+}
+.pink {
+  color: #e62e7a;
+}
+.disabled {
+  color: #b3b3b3;
 }
 </style>
