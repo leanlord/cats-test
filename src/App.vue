@@ -88,7 +88,8 @@ body {
   }
   &__cats {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: space-around;
   }
 }
 </style>

@@ -9,7 +9,7 @@
         disabled ? { border: '4px solid #B3B3B3' } : {},
       ]"
       :class="{ catDissolve: disabled, disabled: disabled }"
-      @mouseover="disabled ? {} : (catHovered = true)"
+      @mouseover="disabled ? {} : selected ? (catHovered = true) : {}"
       @mouseleave="catHovered = false"
     >
       <p class="cat__category pink" v-if="catHovered">Котэ не одобряет?</p>
@@ -107,6 +107,7 @@ $blue: #22a7e9;
 $pink: #d91667;
 $yellow: #ffff66;
 .card {
+  padding: 15px;
   overflow: hidden;
   &__text {
     text-align: center;
